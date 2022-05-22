@@ -204,12 +204,7 @@ pub mod rays {
             let is_orthographic = projection.w_axis[3] == 1.0;
 
             // Compute the cursor position at the near plane. The bevy camera looks at -Z.
-            let ndc_near = world_to_ndc
-                .transform_point3(
-                    -Vec3::Z * (camera.projection_matrix.w_axis.z - 1.0)
-                        / camera.projection_matrix.z_axis.z,
-                )
-                .z;
+            let ndc_near = world_to_ndc.transform_point3(-Vec3::Z * camera.near).z;
             let cursor_pos_near = ndc_to_world.transform_point3(cursor_ndc.extend(ndc_near));
 
             // Compute the ray's direction depending on the projection used.
